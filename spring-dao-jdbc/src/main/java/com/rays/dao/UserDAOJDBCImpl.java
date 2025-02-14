@@ -16,6 +16,8 @@ public class UserDAOJDBCImpl implements UserDAOInt {
 
 	private JdbcTemplate jdbcTemplate;
 
+	private DataSource dataSource = null;
+
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -28,11 +30,10 @@ public class UserDAOJDBCImpl implements UserDAOInt {
 		int pk = jdbcTemplate.update(sql, dto.getId(), dto.getFirstName(), dto.getLastName(), dto.getLogin(),
 				dto.getPassword());
 		return pk;
-		// TODO Auto-generated method stub
-
 	}
 
 	public void update(UserDTO dto) {
+
 		String sql = "update user set first_name = ?, last_name = ?, login = ?, password = ? where id = ?";
 
 		int i = jdbcTemplate.update(sql, dto.getFirstName(), dto.getLastName(), dto.getLogin(), dto.getPassword(),
@@ -41,14 +42,16 @@ public class UserDAOJDBCImpl implements UserDAOInt {
 	}
 
 	public void delete(long id) {
+
 		String sql = "delete from user where id = ?";
 
 		Object[] params = { id };
-		int i = jdbcTemplate.update(sql, params);
 
+		int i = jdbcTemplate.update(sql, params);
 	}
 
 	public UserDTO findByLogin(String login) {
+
 		String sql = "select id, first_name, last_name, login, password from user where login = ?";
 
 		Object[] params = { login };
@@ -56,18 +59,8 @@ public class UserDAOJDBCImpl implements UserDAOInt {
 		return user;
 	}
 
-	public UserDTO authenticate(String login, String password) {
-		try {
-			String sql = "select id, first_name, last_name, login, password from user where login = ? and password = ?";
-			Object[] params = { login, password };
-			UserDTO user = jdbcTemplate.queryForObject(sql, params, new UserMapper());
-			return user;
-		} catch (EmptyResultDataAccessException e) {
-			return null;
-		}
-	}
-
 	public UserDTO findByPK(long pk) {
+
 		String sql = "select id, first_name, last_name, login, password from user where id = ?";
 
 		Object[] params = { pk };
@@ -79,6 +72,17 @@ public class UserDAOJDBCImpl implements UserDAOInt {
 			dto = (UserDTO) list.get(0);
 		}
 		return dto;
+	}
+
+	public UserDTO authenticate(String login, String password) {
+		try {
+			String sql = "select id, first_name, last_name, login, password from user where login = ? and password = ?";
+			Object[] params = { login, password };
+			UserDTO user = jdbcTemplate.queryForObject(sql, params, new UserMapper());
+			return user;
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
 
 	public List search(UserDTO dto) {

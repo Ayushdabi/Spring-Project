@@ -14,24 +14,25 @@ import com.rays.dto.UserDTO;
 public class UserServiceImpl implements UserServiceInt {
 
 	@Autowired
-	private UserDAOInt dao = null;
+	private UserDAOInt dao;
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public long add(UserDTO dto) {
 
 		long pk = dao.add(dto);
-
+		/*
+		 * if (dto.getLogin().equals("admin")) { throw new
+		 * RuntimeException("User with login 'admin' not allowed."); }
+		 */
 		return pk;
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
-
 	public void update(UserDTO dto) {
 		dao.update(dto);
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
-
 	public void delete(long id) {
 		dao.delete(id);
 	}
@@ -39,9 +40,9 @@ public class UserServiceImpl implements UserServiceInt {
 	@Transactional(readOnly = true)
 	public UserDTO findByLogin(String login) {
 		return dao.findByLogin(login);
-
 	}
 
+	@Transactional(readOnly = true)
 	public UserDTO findByPK(long pk) {
 		return dao.findByPK(pk);
 	}
@@ -61,5 +62,4 @@ public class UserServiceImpl implements UserServiceInt {
 	public List search(UserDTO dto, int pageNo, int pageSize) {
 		return dao.search(dto, pageNo, pageSize);
 	}
-
 }

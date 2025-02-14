@@ -18,5 +18,4 @@ public class UserMapper implements RowMapper<UserDTO> {
 		user.setPassword(rs.getString(5));
 		return user;
 	}
-
 }

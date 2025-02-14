@@ -2,6 +2,16 @@ package com.rays.dto;
 
 public class UserDTO {
 
+	protected long id;
+
+	private String firstName;
+
+	private String lastName;
+
+	private String login;
+
+	private String password;
+
 	public long getId() {
 		return id;
 	}
@@ -19,7 +29,7 @@ public class UserDTO {
 	}
 
 	public String getLastName() {
-		return lastName;	
+		return lastName;
 	}
 
 	public void setLastName(String lastName) {
@@ -41,15 +51,4 @@ public class UserDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	protected long id;
-
-	private String firstName;
-
-	private String lastName;
-
-	private String login;
-
-	private String password;
-
 }
