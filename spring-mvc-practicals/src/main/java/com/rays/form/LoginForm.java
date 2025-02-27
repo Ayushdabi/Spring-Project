@@ -1,9 +1,16 @@
 package com.rays.form;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class LoginForm {
 
+	@NotEmpty(message = "Login is required")
+	@Email(message = "Login is invalid email")
 	private String login;
 
+	@NotEmpty(message = "password is required")
+	
 	private String password;
 
 	public String getLogin() {
@@ -21,4 +28,5 @@ public class LoginForm {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 }

@@ -16,11 +16,9 @@
 			Hi,
 			<c:out value="${sessionScope.user.firstName}"></c:out>
 		</h3>
-		<a href="<c:url value="/User"/>"><b>Add User</b></a>
-		<b>|</b>
-		<a href="<c:url value="/User/search"/>"><b>User List</b></a>
-		<b>|</b>
-		<a href="<c:url value="/Login?operation=logout"/>"><b>Logout</b></a>
+		<a href="<c:url value="/ctl/User"/>"><b>Add User</b></a> | <a
+			href="<c:url value="/ctl/User/search"/>"><b>User List</b></a> | <a
+			href="<c:url value="/Login?operation=logout"/>"><b>Logout</b></a>
 	</c:if>
 	<c:if test="${empty sessionScope.user}">
 		<h3>Hi, Guest</h3>
